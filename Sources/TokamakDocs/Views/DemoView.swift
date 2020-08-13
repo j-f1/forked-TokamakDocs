@@ -1,4 +1,5 @@
 import TokamakDOM
+import TokamakStaticHTML
 import TokamakCore
 
 struct DemoView<Content> : View where Content : View {
@@ -11,22 +12,18 @@ struct DemoView<Content> : View where Content : View {
     }
     
     var body: some View {
-        HStack(alignment: .center) {
-            VStack(alignment: .leading) {
-                ForEach(code.split(separator: "\n"), id: \.self) { line in
-                    DynamicHTML("p", ["style": "margin: 0; \(line == "  " ? "margin-bottom: 1em;" : "")"]) {
-                        Text(line)
-                            .font(.system(size: 12, design: .monospaced))
-                    }
-                    .padding(.leading, CGFloat(line[..<(line.firstIndex(where: { !$0.isWhitespace }) ?? line.startIndex)].count) * 6)
-                }
+        VStack(alignment: .center) {
+            HStack {
+                HTML("pre", content: code)
+                Spacer()
             }
-            content
-                .padding()
+            Divider()
+            content.frame(maxWidth: 380, maxHeight: 300).padding(10)
         }
-        .padding()
-        .background(0xEEEEEE as Color)
+        .padding(10)
+        .background(Color(white: 0.9, opacity: 1))
         .cornerRadius(15)
+        .frame(maxWidth: 400)
         .padding()
     }
 }
