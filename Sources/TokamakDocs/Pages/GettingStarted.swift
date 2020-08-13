@@ -1,6 +1,8 @@
 import TokamakDOM
 import Demos
 
+let buttonDemoSource = ""
+
 extension Page {
   static let gettingStarted = Page(name: "Getting Started") {
     Text("Welcome to Tokamak. A SwiftUI-compatible framework for building browser apps with WebAssembly.")

@@ -2,18 +2,12 @@ import TokamakDOM
 import TokamakCore
 import DiffModel
 
-struct Divider : View {
-  var body: some View {
-    HTML("hr", ["style": "width: 100%;"])
-  }
-}
-
 struct Link : View {
   let destination: String
   let label: String
   
   var body: some View {
-    HTML("a", ["style": "text-decoration: none;", "href": destination]) {
+    DynamicHTML("a", ["style": "text-decoration: none;", "href": destination]) {
       Text(label)
     }
   }
@@ -26,7 +20,7 @@ enum PageSource {
 
 struct TokamakDocs : View {
   
-  @State private var currentPage: PageSource = .docs(0)
+  @State private var currentPage: PageSource = .custom(.gettingStarted)
   
   var currentPageView: some View {
     switch currentPage {

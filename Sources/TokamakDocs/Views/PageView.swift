@@ -25,8 +25,12 @@ struct PageView : View {
                         .padding(.leading)
                 }
                     .padding(section.isCode ? 10 : 0)
-                    .background(section.isCode ? Color(red: 0.9, green: 0.9, blue: 0.9, alpha: 1) : Color(red: 1, green: 1, blue: 1, alpha: 1))
-                    .cornerRadius(10)
+                    .background(
+                        section.isCode
+                            ? Color(red: 0.9, green: 0.9, blue: 0.9, opacity: 1)
+                            : Color(red: 1, green: 1, blue: 1, opacity: 1)
+                    )
+                    .cornerRadius(section.isCode ? 10 : 0)
                     .padding(section.isCode ? 10 : 0)
             }
         }

@@ -14,7 +14,7 @@ struct DemoView<Content> : View where Content : View {
     HStack(alignment: .center) {
       VStack(alignment: .leading) {
         ForEach(code.split(separator: "\n"), id: \.self) { line in
-          HTML("p", ["style": "margin: 0; \(line == "  " ? "margin-bottom: 1em;" : "")"]) {
+          DynamicHTML("p", ["style": "margin: 0; \(line == "  " ? "margin-bottom: 1em;" : "")"]) {
             Text(line)
               .font(.system(size: 12, design: .monospaced))
           }
