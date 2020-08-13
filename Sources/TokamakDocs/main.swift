@@ -9,11 +9,11 @@ let document = JSObjectRef.global.document.object!
 
 //div.set("style", "display: flex; width: 100%; height: 100%; justify-content: center; align-items: center;")
 struct TokamakDocsApp: App {
-  var body: some Scene {
-    WindowGroup("Tokamak Docs") {
-      TokamakDocs()
+    var body: some Scene {
+        WindowGroup("Tokamak Docs") {
+            TokamakDocs()
+        }
     }
-  }
 }
 
 TokamakDocsApp.main()

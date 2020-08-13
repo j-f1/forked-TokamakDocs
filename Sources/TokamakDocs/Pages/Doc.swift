@@ -9,17 +9,13 @@ func indent(_ string: Substring) -> UInt {
     }
 }
 
-struct PageView : View {
-    let page: DocPage
+struct DocPageView: View {
+    let sections: [DocSection]
     let idx: Int
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(page.title)
-                .font(.title)
-                .bold()
-            Divider()
-            ForEach(Array(page.sections.enumerated()), id: \.offset) { (offset, section) in
+        ScrollView {
+            ForEach(Array(sections.enumerated()), id: \.offset) { (offset, section) in
                 VStack {
                     VStack(alignment: .leading) {
                         ForEach(section.text.split(separator: "\n"), id: \.self) { line in
@@ -32,14 +28,14 @@ struct PageView : View {
                     demos[idx][offset]()
                         .padding(.leading)
                 }
-                    .padding(section.isCode ? 10 : 0)
-                    .background(
-                        section.isCode
-                            ? Color(red: 0.9, green: 0.9, blue: 0.9, opacity: 1)
-                            : Color(red: 1, green: 1, blue: 1, opacity: 1)
-                    )
-                    .cornerRadius(section.isCode ? 10 : 0)
-                    .padding(section.isCode ? 10 : 0)
+                .padding(section.isCode ? 10 : 0)
+                .background(
+                    section.isCode
+                        ? Color(red: 0.9, green: 0.9, blue: 0.9, opacity: 1)
+                        : Color(red: 1, green: 1, blue: 1, opacity: 1)
+                )
+                .cornerRadius(section.isCode ? 10 : 0)
+                .padding(section.isCode ? 10 : 0)
             }
         }
     }
