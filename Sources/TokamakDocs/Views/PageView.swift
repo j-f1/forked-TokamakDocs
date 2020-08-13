@@ -1,6 +1,14 @@
 import TokamakDOM
 import DiffModel
 
+func indent(_ string: Substring) -> UInt {
+    if string.starts(with: "  ") {
+        return 1 + indent(string.dropFirst(2))
+    } else {
+        return 0
+    }
+}
+
 struct PageView : View {
     let page: DocPage
     let idx: Int
@@ -17,7 +25,7 @@ struct PageView : View {
                         ForEach(section.text.split(separator: "\n"), id: \.self) { line in
                             Text(line)
                                 .font(section.isCode ? .system(.body, design: .monospaced) : .body)
-            //                    .padding(.leading, line.count - line.trimming(in: .whitespace).count)
+                                .padding(.leading, Double(indent(line) * 11 * 2))
                         }
                     }
                     (section.isCode ? AnyView(Divider()) : AnyView(EmptyView()))
