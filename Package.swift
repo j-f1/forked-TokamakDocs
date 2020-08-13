@@ -25,12 +25,6 @@ let package = Package(
             name: "DiffModel"
         ),
         .target(
-            name: "Demos",
-            dependencies: [
-                .product(name: "TokamakDOM", package: "Tokamak"),
-            ]
-        ),
-        .target(
             name: "TokamakAutoDiff",
             dependencies: [
                 "SwiftSyntax",
@@ -43,8 +37,7 @@ let package = Package(
             dependencies: [
                 .product(name: "TokamakDOM", package: "Tokamak"),
                 "JavaScriptKit",
-                "DiffModel",
-                "Demos"
+                "DiffModel"
             ]),
         .testTarget(
             name: "TokamakDocsTests",
