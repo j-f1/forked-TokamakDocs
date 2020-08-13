@@ -40,6 +40,7 @@ func genDocs(for syntax: SourceFileSyntax) -> [DocPage] {
     for token in syntax.tokens {
         if token.tokenKind == .publicKeyword && token.nextToken?.tokenKind == .structKeyword && token.conformsTo("View") {
             if let viewName = token.nextToken?.nextToken?.text {
+                if viewName.first == "_" { continue }
                 let docComments = token
                     .leadingTrivia
                     .compactMap { (trivia) -> String? in
