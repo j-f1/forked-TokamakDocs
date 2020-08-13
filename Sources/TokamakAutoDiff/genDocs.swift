@@ -49,8 +49,8 @@ func genDocs(for syntax: SourceFileSyntax) -> [DocPage] {
                         } else {
                             return nil
                         }
-//                            .replacingOccurrences(of: "\"", with: "\\\"")
-//                            .replacingOccurrences(of: #"\("#, with: #"\\("#)
+//                        .replacingOccurrences(of: "\"", with: "\\\"")
+//                        .replacingOccurrences(of: #"\("#, with: #"\\("#)
                     }
                 var docSections = parseDocs(docComments)
                 if docComments.count == 0 {

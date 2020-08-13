@@ -97,7 +97,7 @@ struct DiffInfo {
         let types = tokens
             .filter {
                 $0.tokenKind == .structKeyword || // Structs
-                $0.tokenKind == .extensionKeyword // Extensions
+                    $0.tokenKind == .extensionKeyword // Extensions
             }
             .compactMap { tok -> TokenSyntax? in
                 if tok.nextToken?.nextToken?.tokenKind == TokenKind.period {
@@ -116,8 +116,7 @@ struct DiffInfo {
         
         viewMethods = tokens
             .filter {
-                $0.tokenKind == .extensionKeyword &&
-                $0.nextToken?.text == "View"
+                $0.tokenKind == .extensionKeyword && $0.nextToken?.text == "View"
             }
             .map { (start) -> [TokenSyntax] in
                 var cur = start
@@ -167,10 +166,10 @@ extension Array where Element == DiffInfo {
         let shapeStyles = map(\.shapeStyles).reduce([], +)
         let viewMethods = map(\.viewMethods).reduce([], +)
         return .init(views: views,
-              modifiers: modifiers,
-              shapes: shapes,
-              shapeStyles: shapeStyles,
-              viewMethods: viewMethods)
+                     modifiers: modifiers,
+                     shapes: shapes,
+                     shapeStyles: shapeStyles,
+                     viewMethods: viewMethods)
     }
 }
 
@@ -183,9 +182,7 @@ struct TokamakAutoDiff: ParsableCommand {
     
     @Argument(help: "The path to save the Swift file to", transform: { URL(fileURLWithPath: $0) })
     var output: URL?
-    
-//    @Argument(help: "The path to the Demos target")
-//    var demosPath: String
+
     @Argument(help: "The path to save the Swift file to", transform: { URL(fileURLWithPath: $0) })
     var docsOutput: URL?
     
@@ -292,58 +289,6 @@ struct TokamakAutoDiff: ParsableCommand {
         """##
             .write(to: docsOutput, atomically: true, encoding: .utf8)
         print("Saved DocPages file to \(output.path)")
-        
-        // - MARK: Demos
-//        print("Searching Demos\n".cyan.bold)
-//        guard let demosEnumerator = FileManager.default.enumerator(atPath: demosPath) else {
-//            throw "Demos not found.".red
-//        }
-//        let demosURL = URL(fileURLWithPath: demosPath)
-//        let demosSource = try (demosEnumerator.allObjects as! [String])
-//            .filter { $0.hasSuffix(".swift") }
-//            .map { URL(fileURLWithPath: $0, relativeTo: demosURL) }
-//            .compactMap {
-//                ($0, try SyntaxParser.parse($0))
-//            }
-//        for (file, source) in demosSource {
-//            for token in source.tokens.filter({ $0.leadingTriviaLength.utf8Length > 0 }) {
-//                if token.description.contains("//#demostart") {
-//                    let output = token
-//                        .readUntil(condition: { $0.description.contains("//#demoend") })
-//                        .dropLast()
-//                        .map(\.description)
-//                        .reduce("", +)
-//                    // Shift indentation left
-//                    let minIndentation = output
-//                        .split(separator: "\n")
-//                        .map {
-//                            $0
-//                                .trimmingCharacters(in: .newlines)
-//                                .count -
-//                            $0
-//                                .trimmingCharacters(in: .whitespacesAndNewlines)
-//                                .count
-//                        }
-//                        .sorted(by: <)
-//                        .first ?? 0
-//                    let formatted = output
-//                        .split(separator: "\n")
-//                        .map { $0.dropFirst(minIndentation) }
-//                        .joined(separator: "\n")
-//                        .replacingOccurrences(of: "//#demostart", with: "")
-//                        .replacingOccurrences(of: "//#demoend", with: "")
-//                        .replacingOccurrences(of: "\\", with: "\\\\")
-//                        .trimmingCharacters(in: .newlines)
-//                    try? """
-//                        public let \(file.lastPathComponent.split(separator: ".").first!.lowercased())DemoSource = \"\"\"
-//                        \(formatted)
-//                        \"\"\"
-//                        """.write(to: file.deletingPathExtension().appendingPathExtension("sourcetxt.swift"),
-//                                    atomically: true,
-//                                    encoding: .utf8)
-//                }
-//            }
-//        }
     }
 }
 
